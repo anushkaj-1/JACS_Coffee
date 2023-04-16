@@ -69,23 +69,36 @@ VALUES ('Caramel Macchiato', CURRENT_DATE, 'Online', 01, 100, 50);
 INSERT INTO Orders (order_name, order_date, order_method, employee_id, user_id, order_id)
 VALUES ('Vanilla Latte', CURRENT_DATE, 'In-Person', 02, 200, 51);
 
+
+CREATE TABLE IF NOT EXISTS Drnk_Ord
+(
+    order_id int,
+    drink_id int,
+    CONSTRAINT fk_03 FOREIGN KEY (order_id)
+        REFERENCES Orders(order_id),
+    CONSTRAINT fk_06 FOREIGN KEY (order_id)
+        REFERENCES Orders(order_id)
+)
+
+INSERT INTO Drnk_Ord (order_id, drink_id)
+VALUES (50,75);
+INSERT INTO Drnk_Ord (order_id, drink_id)
+VALUES (51,76);
+
 CREATE TABLE IF NOT EXISTS Drink
 (
     size varchar(50) not null ,
     milk varchar(50),
     type varchar(50),
     price float not null ,
-    order_id int,
-    drink_id int PRIMARY KEY,
-    CONSTRAINT fk_03 FOREIGN KEY (order_id)
-        REFERENCES Orders(order_id)
+    drink_id int PRIMARY KEY
 );
 
-INSERT INTO Drink(size, milk, type, price, order_id, drink_id)
-VALUES ('Small', 'Oat', 'Macchiato', 3.50, 50, 75);
+INSERT INTO Drink(size, milk, type, price, drink_id)
+VALUES ('Small', 'Oat', 'Macchiato', 3.50, 75);
 
-INSERT INTO Drink(size, milk, type, price, order_id, drink_id)
-VALUES ('Large', 'Whole', 'Latte', 4.00, 51, 76);
+INSERT INTO Drink(size, milk, type, price, drink_id)
+VALUES ('Large', 'Whole', 'Latte', 4.00, 76);
 
 
 CREATE TABLE IF NOT EXISTS Rewards
