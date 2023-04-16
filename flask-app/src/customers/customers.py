@@ -83,9 +83,8 @@ def get_order_history(userID):
     return the_response
 
 
-"""
 #Customers can place online orders
-@customers.route('/placeOrder', method = ['PUT'])
+@customers.route('/placeOrder', methods = ['POST'])
 def place_order():
     the_data = request.json
     current_app.logger.info(the_data)
@@ -93,21 +92,29 @@ def place_order():
     
 
     order_name = the_data['drink_name']
-    order_date = date.today()
+    order_date = str(date.today())
     order_method = 'Online'
+    drink_id = the_data['drink_id']
     user_id = the_data['user_id']
-    cursor.execute('SELECT max(order_id) from Order')
+    cursor.execute('SELECT max(order_id) from Orders')
     order_id = cursor.fetchall()
     order_id = int((order_id[0])[0])+1
 
-    query = 'INSERT INTO Order (order_name, order_date, user_id, ) values ("'
-    query += cst_name +'", '
-    query += "STR_TO_DATE('" + birthday + "' ,'%d,%m,%Y'), \""
-    query += str(user_id) +'")'
+    query = 'INSERT INTO Orders (order_name, order_date, order_method, user_id, order_id) values ("'
+    query += order_name +'", '
+    query += "STR_TO_DATE('" + order_date + "' ,'%Y-%m-%d'), \""
+    query += order_method +'", '
+    query += user_id +', "'
+    query += str(order_id) +'")'
     current_app.logger.info(query)
+
+    query2 = 'INSERT INTO Drnk_Ord (order_id, drink_id) values ('
+    query2 += str(order_id) +', '
+    query2 += drink_id + ')'
+    current_app.logger.info(query2)
 
     cursor2 = db.get_db().cursor()
     cursor2.execute(query)
+    cursor2.execute(query2)
     db.get_db().commit()
-    return 'New customer:' + cst_name +', ' + birthday +', ' + str(user_id) +'.'
-    """
+    return 'New customer:' + order_name +', ' + order_date +', ' + order_method + ', ' + user_id + ', ' + drink_id + ', ' + str(order_id) +'.'
