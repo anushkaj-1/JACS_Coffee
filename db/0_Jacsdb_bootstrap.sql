@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS Drnk_Ord
         REFERENCES Orders(order_id),
     CONSTRAINT fk_06 FOREIGN KEY (order_id)
         REFERENCES Orders(order_id)
-)
+);
 
 INSERT INTO Drnk_Ord (order_id, drink_id)
 VALUES (50,75);
