@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
@@ -34,6 +34,32 @@ def get_customer(userID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
+
+# Customers add themselves to the database
+@customers.route('/makeAccount', methods = ['POST'])
+def make_account():
+
+    the_data = request.json
+    current_app.logger.info(the_data)
+    cursor = db.get_db().cursor()
+    
+
+    cst_name = the_data['customer_name']
+    birthday = the_data['customer_birthday']
+    cursor.execute('SELECT max(user_id) from Customer')
+    user_id = cursor.fetchall()
+    user_id = int((user_id[0])[0])+1
+
+    query = 'INSERT INTO Customer (cst_name, birthday, user_id) values ("'
+    query += cst_name +'", '
+    query += "STR_TO_DATE('" + birthday + "' ,'%d,%m,%Y'), \""
+    query += str(user_id) +'")'
+    current_app.logger.info(query)
+
+    cursor2 = db.get_db().cursor()
+    cursor2.execute(query)
+    db.get_db().commit()
+    return 'New customer:' + cst_name +', ' + birthday +', ' + str(user_id) +'.'
 
 # Get the customer's order history
 @customers.route('/orders/<userID>', methods=['GET'])
