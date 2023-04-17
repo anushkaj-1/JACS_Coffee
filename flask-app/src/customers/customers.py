@@ -198,4 +198,3 @@ def cst_rewards(userID):
         cursor3.execute(query)
         db.get_db().commit()
         return 'New reward:' + discount +', ' + exp_date +', ' + item + ', ' + user_id + ', ' + pointValue + ', ' + str(reward_id) +'.'
-
