@@ -39,14 +39,15 @@ CREATE TABLE IF NOT EXISTS Customer
 (
     cst_name varchar(50) not null ,
     birthday date ,
+    points int,
     user_id int PRIMARY KEY
 );
 
-INSERT INTO Customer (cst_name, birthday, user_id)
-VALUES ('Lance Bailey', CURRENT_DATE, 100);
+INSERT INTO Customer (cst_name, birthday, points, user_id)
+VALUES ('Lance Bailey', CURRENT_DATE, 50, 100);
 
-INSERT INTO Customer (cst_name, birthday, user_id)
-VALUES ('Michael Jackson', CURRENT_DATE, 200);
+INSERT INTO Customer (cst_name, birthday, points, user_id)
+VALUES ('Michael Jackson', CURRENT_DATE, 95, 200);
 
 CREATE TABLE IF NOT EXISTS Orders
 (
@@ -91,14 +92,15 @@ CREATE TABLE IF NOT EXISTS Drink
     milk varchar(50),
     type varchar(50),
     price float not null ,
+    pointValue int not null,
     drink_id int PRIMARY KEY
 );
 
-INSERT INTO Drink(size, milk, type, price, drink_id)
-VALUES ('Small', 'Oat', 'Macchiato', 3.50, 75);
+INSERT INTO Drink(size, milk, type, price, pointValue, drink_id)
+VALUES ('Small', 'Oat', 'Macchiato', 3.50, 5, 75);
 
-INSERT INTO Drink(size, milk, type, price, drink_id)
-VALUES ('Large', 'Whole', 'Latte', 4.00, 76);
+INSERT INTO Drink(size, milk, type, price, pointValue, drink_id)
+VALUES ('Large', 'Whole', 'Latte', 4.00, 6, 76);
 
 
 CREATE TABLE IF NOT EXISTS Rewards
@@ -107,16 +109,17 @@ CREATE TABLE IF NOT EXISTS Rewards
     discount int ,
     item varchar(50),
     user_id int ,
+    pointValue int,
     reward_id int PRIMARY KEY,
      CONSTRAINT fk_04 FOREIGN KEY (user_id)
         REFERENCES Customer(user_id)
 );
 
-INSERT INTO Rewards(exp_date, discount, item, user_id, reward_id)
-VALUES (CURRENT_DATE, 5, 'Latte', 100, 1000);
+INSERT INTO Rewards(exp_date, discount, item, user_id, pointValue, reward_id)
+VALUES (CURRENT_DATE, 5, 'Latte', 100, 10, 1000);
 
-INSERT INTO Rewards(exp_date, discount, item, user_id, reward_id)
-VALUES (CURRENT_DATE, 5, 'Cortado', 200, 1001);
+INSERT INTO Rewards(exp_date, discount, item, user_id, pointValue, reward_id)
+VALUES (CURRENT_DATE, 5, 'Cortado', 200, 20, 1001);
 
 
 CREATE TABLE IF NOT EXISTS Toppings
