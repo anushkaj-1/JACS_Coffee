@@ -9,7 +9,7 @@ services:
     
     # Set up the web server according to the Dockerfile inside the api/ folder
     build: flask-app/
-    container_name: web
+    container_name: coffee_app
     # connect the src folder in on the host machine to the code folder in the container. 
     # note that the code folder in contaier is the working directory (see DockerFile).
     volumes: ['./flask-app:/code', './secrets:/secrets'] 
