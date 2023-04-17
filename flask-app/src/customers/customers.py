@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response, current_app
+from flask import Blueprint, Flask, request, jsonify, make_response, current_app
 import json
 from src import db
 from datetime import date
@@ -148,3 +148,54 @@ def get_points(userID):
     return the_response
 
 #Access customers rewards
+@customers.route('/rewards/<userID>', methods = ['GET', 'POST'])
+def cst_rewards(userID):
+    if request.method == 'GET':
+        cursor = db.get_db().cursor()
+        cursor.execute('select * from Rewards where user_id = {0}'.format(userID))
+        row_headers = [x[0] for x in cursor.description]
+        json_data = []
+        theData = cursor.fetchall()
+        for row in theData:
+            json_data.append(dict(zip(row_headers, row)))
+        the_response = make_response(jsonify(json_data))
+        the_response.status_code = 200
+        the_response.mimetype = 'application/json'
+        return the_response
+    else:
+        the_data = request.json
+        current_app.logger.info(the_data)
+        cursor = db.get_db().cursor()
+    
+
+        discount = the_data['discount']
+        exp_date = the_data['exp_date']
+        item = the_data['item']
+        user_id = userID
+        pointValue = the_data['pointValue']
+        cursor.execute('SELECT max(reward_id) from Rewards')
+        reward_id = cursor.fetchall()
+        reward_id = int((reward_id[0])[0])+1
+
+        cursor2 = db.get_db().cursor()
+        cursor2.execute('select points from Customer where user_id = "' + user_id + '"')
+        cstPoints = cursor2.fetchall()
+        cstPoints = int((cstPoints[0])[0])
+
+        if cstPoints < int(pointValue):
+            return 'Not enough points to redeem reward'
+        else:
+            query = 'INSERT INTO Rewards (discount, exp_date, item, user_id, pointValue, reward_id) values ("'
+            query += discount +'", '
+            query += "STR_TO_DATE('" + exp_date + "' ,'%d,%m,%Y'), \""
+            query += item +'", "'
+            query += user_id +'", "'
+            query += pointValue +'", "'
+            query += str(reward_id) +'")'
+            current_app.logger.info(query)
+
+        cursor3 = db.get_db().cursor()
+        cursor3.execute(query)
+        db.get_db().commit()
+        return 'New reward:' + discount +', ' + exp_date +', ' + item + ', ' + user_id + ', ' + pointValue + ', ' + str(reward_id) +'.'
+
