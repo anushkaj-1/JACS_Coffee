@@ -29,7 +29,7 @@ services:
   db:
     # We are using the base image of MySQL v.8
     image: mysql:8
-    container_name: db
+    container_name: jacs
     volumes:
       # anything in (or mounted in) /docker-entrypoint-initdb.d in the container 
       # will automatically be executed when the container is created
