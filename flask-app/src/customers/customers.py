@@ -10,7 +10,7 @@ customers = Blueprint('customers', __name__)
 @customers.route('/customers', methods=['GET'])
 def get_customers():
     cursor = db.get_db().cursor()
-    cursor.execute('select cst_name, birthday, user_id from Customer')
+    cursor.execute('select * from Customer')
     row_headers = [x[0] for x in cursor.description]
     json_data = []
     theData = cursor.fetchall()
@@ -51,9 +51,10 @@ def make_account():
     user_id = cursor.fetchall()
     user_id = int((user_id[0])[0])+1
 
-    query = 'INSERT INTO Customer (cst_name, birthday, user_id) values ("'
+    query = 'INSERT INTO Customer (cst_name, birthday, points, user_id) values ("'
     query += cst_name +'", '
     query += "STR_TO_DATE('" + birthday + "' ,'%d,%m,%Y'), \""
+    query += str(0) + '", "'
     query += str(user_id) +'")'
     current_app.logger.info(query)
 
@@ -116,5 +117,34 @@ def place_order():
     cursor2 = db.get_db().cursor()
     cursor2.execute(query)
     cursor2.execute(query2)
+
+    cursor3 = db.get_db().cursor()
+    cursor4 = db.get_db().cursor()
+    cursor5 = db.get_db().cursor()
+
+    cursor3.execute('select points from Customer where user_id = "' + user_id + '"')
+    cursor4.execute('select pointValue from Drink where drink_id = ' + drink_id)
+    newPoints = cursor3.fetchall()
+    addedPoints = cursor4.fetchall()
+    newPoints = int((newPoints[0])[0]) + int((addedPoints[0])[0])
+    cursor5.execute('UPDATE Customer SET points = "' + str(newPoints) + '" WHERE user_id = "' + user_id +  '";')
+
     db.get_db().commit()
     return 'New customer:' + order_name +', ' + order_date +', ' + order_method + ', ' + user_id + ', ' + drink_id + ', ' + str(order_id) +'.'
+
+#Get customers current points
+@customers.route('/points/<userID>', methods = ['GET'])
+def get_points(userID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select points from Customer where user_id = {0}'.format(userID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+#Access customers rewards
