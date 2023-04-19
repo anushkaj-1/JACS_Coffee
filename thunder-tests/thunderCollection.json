@@ -1,9 +1,14 @@
 [
   {
-    "_id": "cd143d75-fd2b-4039-a514-cd7a5005de02",
-    "colName": "Simple Requests",
-    "created": "2023-03-29T12:08:58.256Z",
+    "_id": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "colName": "Employee Requests",
+    "created": "2023-04-18T02:25:18.048Z",
     "sortNum": 10000,
-    "folders": []
+    "folders": [],
+    "settings": {
+      "options": {
+        "baseUrl": "localhost:8001/e"
+      }
+    }
   }
 ]
