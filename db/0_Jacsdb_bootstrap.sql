@@ -91,7 +91,8 @@ CREATE TABLE IF NOT EXISTS Drnk_Ord
     order_id int,
     drink_id int,
     CONSTRAINT fk_03 FOREIGN KEY (order_id)
-        REFERENCES Orders(order_id),
+        REFERENCES Orders(order_id)
+        ON DELETE cascade,
     CONSTRAINT fk_06 FOREIGN KEY (drink_id)
         REFERENCES Drink(drink_id)
 );
@@ -128,6 +129,7 @@ CREATE TABLE IF NOT EXISTS Toppings
     topping varchar(100) PRIMARY KEY ,
      CONSTRAINT fk_05 FOREIGN KEY (order_id)
         REFERENCES Orders(order_id)
+        ON DELETE cascade
 );
 
 INSERT INTO Toppings(order_id, topping)
