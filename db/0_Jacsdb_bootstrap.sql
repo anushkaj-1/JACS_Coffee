@@ -3,6 +3,7 @@
 -- Create a new database.  You can change the name later.  You'll
 -- need this name in the FLASK API file(s),  the AppSmith 
 -- data source creation.
+
 create database Jacsdb;
 
 -- Via the Docker Compose file, a special user called webapp will 
@@ -10,6 +11,7 @@ create database Jacsdb;
 -- all privilages to the new database we just created. 
 -- TODO: If you changed the name of the database above, you need 
 -- to change it here too.
+
 grant all privileges on Jacsdb.* to 'webapp'@'%';
 flush privileges;
 
@@ -22,10 +24,10 @@ DROP TABLE Employee;
 -- Put your DDL 
 CREATE TABLE IF NOT EXISTS Employee
 (
-    employee_id int PRIMARY KEY
+    employee_id int PRIMARY KEY,
     first_name varchar(50) not null ,
     last_name varchar(50) not null ,
-    employee_role varchar(50),
+    employee_role varchar(50)
 );
 
 INSERT INTO Employee(employee_id,first_name,last_name,employee_role) VALUES (1,'Darnell','Borzone','Barista');
@@ -116,7 +118,7 @@ DROP TABLE Orders;
 CREATE TABLE IF NOT EXISTS Orders
 (
     order_id int PRIMARY KEY ,
-    order_date datetime,
+    order_date date,
     order_method varchar(50),
     employee_id int,
     user_id int,
@@ -127,57 +129,58 @@ CREATE TABLE IF NOT EXISTS Orders
 
 );
 
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (1,'10/23/2022','Online',25,17);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (2,'10/31/2022','In-Person',11,1);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (3,'6/2/2022','Online',11,23);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (4,'9/1/2022','In-Person',18,30);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (5,'8/8/2022','Online',23,9);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (6,'6/25/2022','Online',17,22);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (7,'7/24/2022','Online',10,33);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (8,'7/24/2022','Online',1,5);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (9,'2/9/2023','Online',21,10);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (10,'2/16/2023','Online',20,8);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (11,'4/16/2023','In-Person',6,2);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (12,'1/31/2023','In-Person',24,35);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (13,'3/24/2023','Online',15,33);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (14,'9/29/2022','In-Person',26,8);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (15,'6/13/2022','Online',19,17);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (16,'12/31/2022','In-Person',6,9);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (17,'1/19/2023','Online',6,7);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (18,'10/6/2022','Online',4,33);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (19,'7/10/2022','In-Person',30,30);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (20,'5/11/2022','Online',19,13);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (21,'7/12/2022','In-Person',5,17);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (22,'12/19/2022','Online',7,33);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (23,'2/1/2023','In-Person',23,12);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (24,'11/14/2022','Online',2,35);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (25,'10/20/2022','In-Person',24,9);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (26,'10/2/2022','In-Person',2,11);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (27,'1/25/2023','Online',23,7);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (28,'6/24/2022','In-Person',7,29);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (29,'1/28/2023','In-Person',22,4);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (30,'7/1/2022','In-Person',1,28);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (31,'1/6/2023','In-Person',20,21);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (32,'7/3/2022','Online',23,14);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (33,'5/11/2022','In-Person',29,4);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (34,'8/25/2022','In-Person',14,33);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (35,'1/30/2023','Online',6,10);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (36,'8/10/2022','In-Person',24,21);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (37,'6/6/2022','In-Person',18,26);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (38,'12/6/2022','Online',24,36);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (39,'8/10/2022','Online',28,35);
-INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (40,'12/23/2022','In-Person',16,20);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (1,'2022-10-23','Online',25,17);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (2,'2022-10-31','In-Person',11,1);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (3,'2022-06-02','Online',11,23);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (4,'2022-09-01','In-Person',18,30);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (5,'2022-08-08','Online',23,9);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (6,'2022-06-25','Online',17,22);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (7,'2022-07-24','Online',10,33);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (8,'2022-07-24','Online',1,5);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (9,'2023-02-09','Online',21,10);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (10,'2023-02-16','Online',20,8);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (11,'2023-04-16','In-Person',6,2);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (12,'2023-01-31','In-Person',24,35);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (13,'2023-03-24','Online',15,33);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (14,'2022-09-29','In-Person',26,8);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (15,'2022-06-13','Online',19,17);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (16,'2022-12-31','In-Person',6,9);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (17,'2023-01-19','Online',6,7);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (18,'2022-10-06','Online',4,33);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (19,'2022-07-10','In-Person',30,30);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (20,'2022-05-11','Online',19,13);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (21,'2022-07-12','In-Person',5,17);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (22,'2022-12-19','Online',7,33);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (23,'2023-02-01','In-Person',23,12);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (24,'2022-11-14','Online',2,35);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (25,'2022-10-20','In-Person',24,9);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (26,'2022-10-02','In-Person',2,11);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (27,'2023-01-25','Online',23,7);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (28,'2022-06-24','In-Person',7,29);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (29,'2023-01-28','In-Person',22,4);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (30,'2022-07-01','In-Person',1,28);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (31,'2023-01-06','In-Person',20,21);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (32,'2022-07-03','Online',23,14);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (33,'2022-05-11','In-Person',29,4);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (34,'2022-08-25','In-Person',14,33);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (35,'2023-01-30','Online',6,10);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (36,'2022-08-10','In-Person',24,21);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (37,'2022-06-06','In-Person',18,26);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (38,'2022-12-06','Online',24,36);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (39,'2022-08-10','Online',28,35);
+INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (40,'2022-12-23','In-Person',16,20);
+
 
 DROP TABLE Drink;
 
 CREATE TABLE IF NOT EXISTS Drink
 (
-    drink_id int PRIMARY KEY
+    drink_id int PRIMARY KEY,
     size varchar(50) not null ,
     milk varchar(50),
     type varchar(50),
     price float not null ,
-    pointValue int not null,
+    point_value int not null
 );
 
 
@@ -286,49 +289,49 @@ CREATE TABLE IF NOT EXISTS Rewards
         REFERENCES Customer(user_id)
 );
 
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (1,'2022-05-20',8,'tea',4,68);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (2,'2022-12-03',2,'custom drink',25,58);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (3,'2022-10-29',6,'birthday item',15,88);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (4,'2022-09-15',8,'coffee',18,97);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (5,'2022-08-02',10,'coffee',39,34);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (6,'2022-09-26',9,'tea',37,56);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (7,'2022-07-09',2,'tea',36,85);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (8,'2023-02-06',1,'birthday item',19,86);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (9,'2022-10-18',2,'tea',5,3);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (10,'2023-02-05',8,'birthday item',31,99);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (11,'2022-11-21',6,'custom drink',15,73);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (12,'2023-02-13',8,'tea',31,99);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (13,'2022-06-02',1,'birthday item',40,25);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (14,'2022-05-02',3,'birthday item',37,38);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (15,'2022-10-22',2,'birthday item',20,45);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (16,'2022-11-13',5,'custom drink',31,27);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (17,'2023-01-10',5,'coffee',21,80);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (18,'2023-03-27',4,'coffee',17,39);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (19,'2022-11-14',10,'birthday item',37,66);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (20,'2022-11-14',10,'birthday item',30,55);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (21,'2022-10-09',7,'birthday item',4,89);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (22,'2023-03-10',7,'custom drink',27,18);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (23,'2023-03-10',4,'coffee',28,10);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (24,'2022-06-26',10,'tea',37,60);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (25,'2022-07-18',1,'coffee',16,24);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (26,'2022-11-02',10,'custom drink',32,71);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (27,'2022-11-11',2,'tea',6,79);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (28,'2023-01-22',7,'birthday item',29,59);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (29,'2022-07-31',10,'coffee',15,73);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (30,'2023-04-07',6,'tea',12,5);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (31,'2023-03-03',9,'custom drink',20,24);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (32,'2022-04-25',2,'coffee',1,96);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (33,'2023-03-22',2,'tea',24,25);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (34,'2022-07-24',3,'birthday item',22,76);
+INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (35,'2023-01-15',7,'coffee',23,66);
 
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (1,'5/20/2022',8,'tea',4,68);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (2,'12/3/2022',2,'custom drink',25,58);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (3,'10/29/2022',6,'birthday item',15,88);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (4,'9/15/2022',8,'coffee',18,97);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (5,'8/2/2022',10,'coffee',39,34);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (6,'9/26/2022',9,'tea',37,56);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (7,'7/9/2022',2,'tea',36,85);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (8,'2/6/2023',1,'birthday item',19,86);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (9,'10/18/2022',2,'tea',5,3);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (10,'2/5/2023',8,'birthday item',31,99);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (11,'11/21/2022',6,'custom drink',15,73);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (12,'2/13/2023',8,'tea',31,99);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (13,'6/2/2022',1,'birthday item',40,25);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (14,'5/2/2022',3,'birthday item',37,38);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (15,'10/22/2022',2,'birthday item',20,45);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (16,'11/13/2022',5,'custom drink',31,27);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (17,'1/10/2023',5,'coffee',21,80);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (18,'3/27/2023',4,'coffee',17,39);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (19,'11/14/2022',10,'birthday item',37,66);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (20,'11/14/2022',10,'birthday item',30,55);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (21,'10/9/2022',7,'birthday item',4,89);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (22,'3/10/2023',7,'custom drink',27,18);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (23,'3/10/2023',4,'coffee',28,10);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (24,'6/26/2022',10,'tea',37,60);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (25,'7/18/2022',1,'coffee',16,24);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (26,'11/2/2022',10,'custom drink',32,71);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (27,'11/11/2022',2,'tea',6,79);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (28,'1/22/2023',7,'birthday item',29,59);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (29,'7/31/2022',10,'coffee',15,73);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (30,'4/7/2023',6,'tea',12,5);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (31,'3/3/2023',9,'custom drink',20,24);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (32,'4/25/2022',2,'coffee',1,96);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (33,'3/22/2023',2,'tea',24,25);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (34,'7/24/2022',3,'birthday item',22,76);
-INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (35,'1/15/2023',7,'coffee',23,66);
 
 DROP TABLE Toppings;
 
 CREATE TABLE IF NOT EXISTS Toppings
 (
     order_id int ,
-    topping varchar(100) PRIMARY KEY ,
+    topping varchar(100),
      CONSTRAINT fk_05 FOREIGN KEY (order_id)
         REFERENCES Orders(order_id)
         ON DELETE cascade
@@ -346,10 +349,8 @@ INSERT INTO Toppings(order_id,topping) VALUES (11,'marshmallows');
 INSERT INTO Toppings(order_id,topping) VALUES (2,'peppermint candies');
 INSERT INTO Toppings(order_id,topping) VALUES (19,'hazelnut syrup');
 INSERT INTO Toppings(order_id,topping) VALUES (8,'toffee bits');
-INSERT INTO Toppings(order_id,topping) VALUES (27,'peppermint candies');
 INSERT INTO Toppings(order_id,topping) VALUES (29,'coconut flakes');
 INSERT INTO Toppings(order_id,topping) VALUES (29,'marshmallows');
-INSERT INTO Toppings(order_id,topping) VALUES (30,'chocolate shavings');
 INSERT INTO Toppings(order_id,topping) VALUES (39,'chocolate chips');
 INSERT INTO Toppings(order_id,topping) VALUES (27,'almond milk foam');
 INSERT INTO Toppings(order_id,topping) VALUES (22,'caramel sauce');
@@ -360,7 +361,4 @@ INSERT INTO Toppings(order_id,topping) VALUES (30,'hazelnut syrup');
 INSERT INTO Toppings(order_id,topping) VALUES (18,'cinnamon powder');
 INSERT INTO Toppings(order_id,topping) VALUES (40,'nutmeg powder');
 INSERT INTO Toppings(order_id,topping) VALUES (3,'whipped cream');
-INSERT INTO Toppings(order_id,topping) VALUES (13,'honey');
-INSERT INTO Toppings(order_id,topping) VALUES (16,'chocolate shavings');
-INSERT INTO Toppings(order_id,topping) VALUES (10,'chocolate shavings');
-INSERT INTO Toppings(order_id,topping) VALUES (5,'whipped cream');
+
