@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, current_app
 import json
 from src import db
 
@@ -57,9 +57,9 @@ def get_order(method):
 @employees.route('/employees/<employeeID>', methods=['PUT'])
 def update_employee_info(employeeID):
     # access json data from reqeuest body
-    # current_app.logger.info('Processing form data')
+    current_app.logger.info('Processing form data')
     req_data = request.get_json()
-    # current_app.logger.info(req_data)
+    current_app.logger.info(req_data)
 
     firstname = req_data['first_name']
     lastname = req_data['last_name']
@@ -74,6 +74,7 @@ def update_employee_info(employeeID):
     db.get_db().commit()
     return "Success"
 
+# remove an order from the database
 @employees.route('/orders/<orderID>', methods=['DELETE'])
 def delete_order(orderID):
     # constuct statement
@@ -82,6 +83,33 @@ def delete_order(orderID):
 
     #execute query
     cursor = db.get_db().cursor()
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Success"
+
+# Add New Employee
+@employees.route('/employees', methods=['POST'])
+def add_employee():
+    # access json data from reqeuest body
+    current_app.logger.info('Processing form data')
+    req_data = request.get_json()
+    current_app.logger.info(req_data)
+    cursor = db.get_db().cursor()
+
+    firstname = req_data['first_name']
+    lastname = req_data['last_name']
+    role = req_data['role']
+    cursor.execute('SELECT max(employee_id) from Employee')
+    employee_id = cursor.fetchall()
+    employee_id = int((employee_id[0])[0])+1
+
+    # constuct statement
+
+    query = 'INSERT INTO Employee (first_name, last_name, employee_role, employee_id) values ("'
+    query += firstname + '", "' + lastname + '", "' + role + '", "' + str(employee_id) + '")'
+
+    #execute query
+    
     cursor.execute(query)
     db.get_db().commit()
     return "Success"
