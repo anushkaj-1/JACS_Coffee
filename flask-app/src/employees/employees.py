@@ -35,13 +35,33 @@ def get_employee(employeeID):
     the_response.mimetype = 'application/json'
     return the_response
 
-# Get all orders from the DB
+# Get all orders from the DB given method
 @employees.route('/pendingOrders/<method>')
 def get_order(method):
     cursor = db.get_db().cursor()
     query ='select * from Orders where order_method =  "'
     query += method
     query += '"' 
+    cursor.execute(query)
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+@employees.route('/allOrders', methods = ['GET'])
+def get_orders():
+    cursor = db.get_db().cursor()
+    query = '''
+        SELECT size, type, milk, topping, cst_name 
+        FROM Drnk_Ord JOIN Drink USING (drink_id) JOIN 
+        Orders USING (order_id) JOIN Toppings USING (order_id) 
+        JOIN Customer USING (user_id)
+    '''
     cursor.execute(query)
     row_headers = [x[0] for x in cursor.description]
     json_data = []
