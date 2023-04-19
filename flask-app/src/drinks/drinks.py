@@ -3,16 +3,16 @@ import json
 from src import db
 
 
-products = Blueprint('products', __name__)
+drinks = Blueprint('drinks', __name__)
 
 # Get all the products from the database
-@products.route('/products', methods=['GET'])
-def get_products():
+@drinks.route('/drinks', methods=['GET'])
+def get_drinks():
     # get a cursor object from the database
     cursor = db.get_db().cursor()
 
     # use cursor to query the database for a list of products
-    cursor.execute('SELECT id, product_code, product_name, list_price FROM products')
+    cursor.execute('SELECT * from Drink')
 
     # grab the column headers from the returned data
     column_headers = [x[0] for x in cursor.description]
@@ -31,8 +31,23 @@ def get_products():
 
     return jsonify(json_data)
 
+@drinks.route('/drinks/<drinkID>', methods = ['GET'])
+def get_drinkID(drinkID):
+    cursor = db.get_db().cursor()
+    cursor.execute('select * from Drink where drink_id = {0}'.format(drinkID))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+"""
 # get the top 5 products from the database
-@products.route('/mostExpensive')
+@drinks.route('/mostExpensive')
 def get_most_pop_products():
     cursor = db.get_db().cursor()
     query = '''
@@ -58,3 +73,4 @@ def get_most_pop_products():
         json_data.append(dict(zip(column_headers, row)))
 
     return jsonify(json_data)
+"""
