@@ -124,12 +124,22 @@ def get_order_detail(orderID):
 
 
     # constuct statement
-
-    query = 'INSERT INTO Employee (first_name, last_name, employee_role, employee_id) values ("'
-    query += firstname + '", "' + lastname + '", "' + role + '", "' + str(employee_id) + '")'
+    quesry = '''SELECT size, milk, type, drink_id, COUNT(drink_id)
+FROM (
+    SELECT D2.drink_id as drink_id, size, milk, type, O.order_id
+    FROM Orders O JOIN Drnk_Ord D on O.order_id = D.order_id JOIN Drink D2 on D.drink_id = D2.drink_id
+    WHERE O.order_id = {0}) X
+GROUP BY (drink_id)'''.format(orderID)
 
     #execute query
     
     cursor.execute(query)
-    db.get_db().commit()
-    return "Success"
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response

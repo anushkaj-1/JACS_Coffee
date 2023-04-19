@@ -3,7 +3,6 @@
 -- Create a new database.  You can change the name later.  You'll
 -- need this name in the FLASK API file(s),  the AppSmith
 -- data source creation.
-DROP DATABASE Jacsdb;
 create database Jacsdb;
 
 -- Via the Docker Compose file, a special user called webapp will
