@@ -114,20 +114,22 @@ def add_employee():
     db.get_db().commit()
     return "Success"
 
-
-'''
-# Get customer detail for customer with particular userID
-@employees.route('/employees/<userID>', methods=['GET'])
-def get_customer(userID):
+# Get detailed information from order
+@employees.route('/orders/<orderID>', methods=['GET'])
+def get_order_detail(orderID):
+    # access json data from reqeuest body
+    current_app.logger.info('Processing form data')
+    req_data = request.get_json()
     cursor = db.get_db().cursor()
-    cursor.execute('select * from customers where id = {0}'.format(userID))
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-    '''
+
+
+    # constuct statement
+
+    query = 'INSERT INTO Employee (first_name, last_name, employee_role, employee_id) values ("'
+    query += firstname + '", "' + lastname + '", "' + role + '", "' + str(employee_id) + '")'
+
+    #execute query
+    
+    cursor.execute(query)
+    db.get_db().commit()
+    return "Success"
