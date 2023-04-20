@@ -95,7 +95,7 @@ def update_employee_info(employeeID):
     db.get_db().commit()
     return "Success"
 
-#delete an order
+
 @employees.route('/orders/<orderID>', methods=['DELETE'])
 def delete_order(orderID):
     # constuct statement
