@@ -68,7 +68,7 @@ def make_account():
 def get_order_history(userID):
     cursor = db.get_db().cursor()
     query = '''
-        SELECT order_date, order_id, order_method, order_name, price, user_id
+        SELECT order_date, order_id, order_method, price, user_id
         FROM Orders NATURAL JOIN Drink
         where user_id = {0}'''.format(userID)
        
@@ -92,7 +92,6 @@ def place_order():
     cursor = db.get_db().cursor()
     
 
-    order_name = the_data['drink_name']
     order_date = str(date.today())
     order_method = 'Online'
     drink_id = the_data['drink_id']
@@ -101,8 +100,7 @@ def place_order():
     order_id = cursor.fetchall()
     order_id = int((order_id[0])[0])+1
 
-    query = 'INSERT INTO Orders (order_name, order_date, order_method, user_id, order_id) values ("'
-    query += order_name +'", '
+    query = 'INSERT INTO Orders (order_date, order_method, user_id, order_id) values ("'
     query += "STR_TO_DATE('" + order_date + "' ,'%Y-%m-%d'), \""
     query += order_method +'", '
     query += user_id +', "'
@@ -130,7 +128,7 @@ def place_order():
     cursor5.execute('UPDATE Customer SET points = "' + str(newPoints) + '" WHERE user_id = "' + user_id +  '";')
 
     db.get_db().commit()
-    return 'New customer:' + order_name +', ' + order_date +', ' + order_method + ', ' + user_id + ', ' + drink_id + ', ' + str(order_id) +'.'
+    return 'New customer:' + order_date +', ' + order_method + ', ' + user_id + ', ' + drink_id + ', ' + str(order_id) +'.'
 
 #Get customers current points
 @customers.route('/points/<userID>', methods = ['GET'])
