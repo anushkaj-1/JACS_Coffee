@@ -135,15 +135,8 @@ def place_order():
 def get_points(userID):
     cursor = db.get_db().cursor()
     cursor.execute('select points from Customer where user_id = {0}'.format(userID))
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(jsonify(json_data))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
+    the_response = cursor.fetchall()
+    return str(the_response[0][0])
 
 #Access customers rewards
 @customers.route('/rewards/<userID>', methods = ['GET', 'POST'])
@@ -166,8 +159,8 @@ def cst_rewards(userID):
         cursor = db.get_db().cursor()
     
 
-        discount = the_data['discount']
-        exp_date = the_data['exp_date']
+        discount = str(the_data['discount'])
+        exp_date = str(the_data['exp_date'])
         item = the_data['item']
         user_id = userID
         pointValue = the_data['point_value']
@@ -185,7 +178,7 @@ def cst_rewards(userID):
         else:
             query = 'INSERT INTO Rewards (discount, exp_date, item, user_id, pointValue, reward_id) values ("'
             query += discount +'", '
-            query += "STR_TO_DATE('" + exp_date + "' ,'%d,%m,%Y'), \""
+            query += "STR_TO_DATE('" + exp_date + "' ,'%Y-%m-%d'), \""
             query += item +'", "'
             query += user_id +'", "'
             query += pointValue +'", "'
@@ -196,3 +189,29 @@ def cst_rewards(userID):
         cursor3.execute(query)
         db.get_db().commit()
         return 'New reward:' + discount +', ' + exp_date +', ' + item + ', ' + user_id + ', ' + pointValue + ', ' + str(reward_id) +'.'
+    
+    #gets all rewards in database
+@customers.route('/allRewards', methods=['GET'])
+def get_all_reward():
+    # get a cursor object from the database
+    cursor = db.get_db().cursor()
+
+    # use cursor to query the database for a list of products
+    cursor.execute('SELECT * from Rewards')
+
+    # grab the column headers from the returned data
+    column_headers = [x[0] for x in cursor.description]
+
+    # create an empty dictionary object to use in 
+    # putting column headers together with data
+    json_data = []
+
+    # fetch all the data from the cursor
+    theData = cursor.fetchall()
+
+    # for each of the rows, zip the data elements together with
+    # the column headers. 
+    for row in theData:
+        json_data.append(dict(zip(column_headers, row)))
+
+    return jsonify(json_data)
