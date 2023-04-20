@@ -53,15 +53,16 @@ def get_order(method):
     the_response.mimetype = 'application/json'
     return the_response
 
-#get all orders with name, size, milk, topping, and drink type (method doesn't matter)
+# Get all orders with name, size, milk, topping, and drink type (method doesn't matter)
 @employees.route('/allOrders', methods = ['GET'])
 def get_orders():
     cursor = db.get_db().cursor()
     query = '''
-        SELECT size, type, milk, topping, cst_name 
+        SELECT size, type, milk, topping, cst_name, order_id 
         FROM Drnk_Ord JOIN Drink USING (drink_id) JOIN 
         Orders USING (order_id) JOIN Toppings USING (order_id) 
         JOIN Customer USING (user_id)
+        ORDER BY order_id
     '''
     cursor.execute(query)
     row_headers = [x[0] for x in cursor.description]
@@ -95,7 +96,7 @@ def update_employee_info(employeeID):
     db.get_db().commit()
     return "Success"
 
-
+# Delete an order
 @employees.route('/orders/<orderID>', methods=['DELETE'])
 def delete_order(orderID):
     # constuct statement
@@ -145,7 +146,7 @@ def get_order_detail(orderID):
 
 
     # constuct statement
-    quesry = '''SELECT size, milk, type, drink_id, COUNT(drink_id)
+    query = '''SELECT size, milk, type, drink_id, COUNT(drink_id)
 FROM (
     SELECT D2.drink_id as drink_id, size, milk, type, O.order_id
     FROM Orders O JOIN Drnk_Ord D on O.order_id = D.order_id JOIN Drink D2 on D.drink_id = D2.drink_id
