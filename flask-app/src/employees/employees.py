@@ -95,7 +95,7 @@ def update_employee_info(employeeID):
     db.get_db().commit()
     return "Success"
 
-
+# Delete order
 @employees.route('/orders/<orderID>', methods=['DELETE'])
 def delete_order(orderID):
     # constuct statement
@@ -145,7 +145,7 @@ def get_order_detail(orderID):
 
 
     # constuct statement
-    quesry = '''SELECT size, milk, type, drink_id, COUNT(drink_id)
+    query = '''SELECT size, milk, type, drink_id, COUNT(drink_id)
 FROM (
     SELECT D2.drink_id as drink_id, size, milk, type, O.order_id
     FROM Orders O JOIN Drnk_Ord D on O.order_id = D.order_id JOIN Drink D2 on D.drink_id = D2.drink_id
