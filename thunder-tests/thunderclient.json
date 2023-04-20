@@ -1,45 +1,179 @@
 [
   {
-    "_id": "88175af4-17b2-4389-abdd-eaae3b1c72a5",
-    "colId": "cd143d75-fd2b-4039-a514-cd7a5005de02",
+    "_id": "99dc916a-c8e6-4893-865e-3ad8125bd54c",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
     "containerId": "",
-    "name": "GET /",
-    "url": "localhost:8001/",
-    "method": "GET",
-    "sortNum": 10000,
-    "created": "2023-03-29T12:09:19.195Z",
-    "modified": "2023-03-29T12:10:39.391Z",
-    "headers": [],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "9353a5d5-9e5c-46d6-b473-584da0370f4c",
-    "colId": "cd143d75-fd2b-4039-a514-cd7a5005de02",
-    "containerId": "",
-    "name": "GET Customers",
-    "url": "localhost:8001/c/customers",
-    "method": "GET",
-    "sortNum": 20000,
-    "created": "2023-03-29T12:12:14.723Z",
-    "modified": "2023-03-29T12:12:24.417Z",
-    "headers": [],
-    "params": [],
-    "tests": []
-  },
-  {
-    "_id": "cc8bc863-0411-4b92-bafd-af353df3b23b",
-    "colId": "cd143d75-fd2b-4039-a514-cd7a5005de02",
-    "containerId": "",
-    "name": "GET Most Expensive Products",
-    "url": "localhost:8001/p/mostExpensive",
+    "name": "TestGetEmployees",
+    "url": "/employees",
     "method": "GET",
     "sortNum": 30000,
-    "created": "2023-03-29T12:13:28.581Z",
-    "modified": "2023-03-29T12:13:48.326Z",
+    "created": "2023-04-18T02:56:38.456Z",
+    "modified": "2023-04-19T15:22:59.612Z",
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "05c30412-ffa9-47f8-932a-d150525df693",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "containerId": "",
+    "name": "TestGetEmployeeDetail",
+    "url": "/employees/2",
+    "method": "GET",
+    "sortNum": 40000,
+    "created": "2023-04-18T21:33:52.264Z",
+    "modified": "2023-04-19T15:59:41.186Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "contains",
+        "value": "\"employee_id\": 2"
+      }
+    ]
+  },
+  {
+    "_id": "e24b46f1-c5e0-4c5c-8116-e9fb5233c2ff",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "containerId": "",
+    "name": "TestGetPendingOnline",
+    "url": "/pendingOrders/Online",
+    "method": "GET",
+    "sortNum": 50000,
+    "created": "2023-04-18T21:45:01.436Z",
+    "modified": "2023-04-19T16:01:41.595Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "notcontains",
+        "value": "\"In-Person\""
+      }
+    ]
+  },
+  {
+    "_id": "947a7c0a-c1a8-40c7-831d-4ab10b8eeb38",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "containerId": "",
+    "name": "TestGetPendingInPerson",
+    "url": "/pendingOrders/In-Person",
+    "method": "GET",
+    "sortNum": 60000,
+    "created": "2023-04-18T23:10:38.074Z",
+    "modified": "2023-04-19T16:01:43.016Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "notcontains",
+        "value": "\"Online\""
+      }
+    ]
+  },
+  {
+    "_id": "5f6e6be6-3a2c-4952-99e3-8d050e67d649",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "containerId": "",
+    "name": "TestUpdateInfo",
+    "url": "/employees/1",
+    "method": "PUT",
+    "sortNum": 60000,
+    "created": "2023-04-18T23:55:36.815Z",
+    "modified": "2023-04-19T16:01:50.072Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"first_name\": \"first\",\n  \"last_name\": \"last\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "Success"
+      }
+    ]
+  },
+  {
+    "_id": "4236866a-af02-4db5-9260-4c9481da3cc8",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "containerId": "",
+    "name": "TestDeletePendingOrder",
+    "url": "/orders/51",
+    "method": "DELETE",
+    "sortNum": 70000,
+    "created": "2023-04-19T00:06:46.136Z",
+    "modified": "2023-04-19T16:03:32.158Z",
+    "headers": [],
+    "params": [],
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "Success"
+      }
+    ]
+  },
+  {
+    "_id": "cea6d10e-60ee-479d-80b1-f3d8b90a638d",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "containerId": "",
+    "name": "TestInsertBarista",
+    "url": "/employees",
+    "method": "POST",
+    "sortNum": 80000,
+    "created": "2023-04-19T15:22:08.275Z",
+    "modified": "2023-04-19T15:33:36.636Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"first_name\": \"cassie\",\n  \"last_name\": \"harb\",\n  \"role\": \"barista\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "Success"
+      }
+    ]
+  },
+  {
+    "_id": "ed9efb7d-e01f-46fc-8bb7-ea9ce68498aa",
+    "colId": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "containerId": "",
+    "name": "TestInsertBarista Copy",
+    "url": "/employees",
+    "method": "POST",
+    "sortNum": 90000,
+    "created": "2023-04-19T15:35:22.661Z",
+    "modified": "2023-04-19T15:35:59.914Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"first_name\": \"Josephine\",\n  \"last_name\": \"Colemane\",\n  \"role\": \"owner\"\n}",
+      "form": []
+    },
+    "tests": [
+      {
+        "type": "res-body",
+        "custom": "",
+        "action": "equal",
+        "value": "Success"
+      }
+    ]
   }
   {
     "_id": "839ceb4e-ea67-4b48-9e02-78e6731a3f28",
