@@ -53,7 +53,7 @@ def get_order(method):
     the_response.mimetype = 'application/json'
     return the_response
 
-#get all orders with name, size, milk, topping, and drink type (method doesn't matter)
+# Get all orders with name, size, milk, topping, and drink type (method doesn't matter)
 @employees.route('/allOrders', methods = ['GET'])
 def get_orders():
     cursor = db.get_db().cursor()

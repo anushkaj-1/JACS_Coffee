@@ -31,6 +31,7 @@ def get_drinks():
 
     return jsonify(json_data)
 
+# Get information for specified drink
 @drinks.route('/drinks/<drinkID>', methods = ['GET'])
 def get_drinkID(drinkID):
     cursor = db.get_db().cursor()
@@ -44,33 +45,3 @@ def get_drinkID(drinkID):
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
-
-"""
-# get the top 5 products from the database
-@drinks.route('/mostExpensive')
-def get_most_pop_products():
-    cursor = db.get_db().cursor()
-    query = '''
-        SELECT product_code, product_name, list_price, reorder_level
-        FROM products
-        ORDER BY list_price DESC
-        LIMIT 5
-    '''
-    cursor.execute(query)
-       # grab the column headers from the returned data
-    column_headers = [x[0] for x in cursor.description]
-
-    # create an empty dictionary object to use in 
-    # putting column headers together with data
-    json_data = []
-
-    # fetch all the data from the cursor
-    theData = cursor.fetchall()
-
-    # for each of the rows, zip the data elements together with
-    # the column headers. 
-    for row in theData:
-        json_data.append(dict(zip(column_headers, row)))
-
-    return jsonify(json_data)
-"""
