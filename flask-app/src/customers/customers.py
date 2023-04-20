@@ -100,16 +100,16 @@ def place_order():
     order_id = cursor.fetchall()
     order_id = int((order_id[0])[0])+1
 
-    query = 'INSERT INTO Orders (order_date, order_method, user_id, order_id) values ("'
+    query = 'INSERT INTO Orders (order_date, order_method, user_id, order_id) values ('
     query += "STR_TO_DATE('" + order_date + "' ,'%Y-%m-%d'), \""
-    query += order_method +'", '
-    query += user_id +', "'
+    query += order_method + '",'
+    query += str(user_id) +',"'
     query += str(order_id) +'")'
     current_app.logger.info(query)
 
     query2 = 'INSERT INTO Drnk_Ord (order_id, drink_id) values ('
     query2 += str(order_id) +', '
-    query2 += drink_id + ')'
+    query2 += str(drink_id) + ')'
     current_app.logger.info(query2)
 
     cursor2 = db.get_db().cursor()
@@ -120,15 +120,15 @@ def place_order():
     cursor4 = db.get_db().cursor()
     cursor5 = db.get_db().cursor()
 
-    cursor3.execute('select points from Customer where user_id = "' + user_id + '"')
-    cursor4.execute('select pointValue from Drink where drink_id = ' + drink_id)
+    cursor3.execute('select points from Customer where user_id = "' + str(user_id) + '"')
+    cursor4.execute('select point_value from Drink where drink_id = ' + str(drink_id))
     newPoints = cursor3.fetchall()
     addedPoints = cursor4.fetchall()
     newPoints = int((newPoints[0])[0]) + int((addedPoints[0])[0])
-    cursor5.execute('UPDATE Customer SET points = "' + str(newPoints) + '" WHERE user_id = "' + user_id +  '";')
+    cursor5.execute('UPDATE Customer SET points = "' + str(newPoints) + '" WHERE user_id = "' + str(user_id) +  '";')
 
     db.get_db().commit()
-    return 'New customer:' + order_date +', ' + order_method + ', ' + user_id + ', ' + drink_id + ', ' + str(order_id) +'.'
+    return 'New customer:' + order_date +', ' + order_method + ', ' + str(user_id) + ', ' + str(drink_id) + ', ' + str(order_id) +'.'
 
 #Get customers current points
 @customers.route('/points/<userID>', methods = ['GET'])
@@ -163,7 +163,7 @@ def cst_rewards(userID):
         exp_date = str(the_data['exp_date'])
         item = the_data['item']
         user_id = userID
-        pointValue = str(the_data['pointValue'])
+        pointValue = the_data['point_value']
         cursor.execute('SELECT max(reward_id) from Rewards')
         reward_id = cursor.fetchall()
         reward_id = int((reward_id[0])[0])+1

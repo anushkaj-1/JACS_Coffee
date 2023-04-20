@@ -354,3 +354,5 @@ INSERT INTO Toppings(order_id,topping) VALUES (18,'cinnamon powder');
 INSERT INTO Toppings(order_id,topping) VALUES (40,'nutmeg powder');
 INSERT INTO Toppings(order_id,topping) VALUES (3,'whipped cream');
 
+
+ INSERT INTO Orders (order_date, order_method, user_id, order_id) values ("STR_TO_DATE('2023-04-20' ,'%Y-%m-%d'), ""Online",10,"41")
