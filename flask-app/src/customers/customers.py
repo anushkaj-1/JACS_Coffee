@@ -163,7 +163,7 @@ def cst_rewards(userID):
         exp_date = str(the_data['exp_date'])
         item = the_data['item']
         user_id = userID
-        pointValue = the_data['point_value']
+        point_value = the_data['point_value']
         cursor.execute('SELECT max(reward_id) from Rewards')
         reward_id = cursor.fetchall()
         reward_id = int((reward_id[0])[0])+1
@@ -173,22 +173,22 @@ def cst_rewards(userID):
         cstPoints = cursor2.fetchall()
         cstPoints = int((cstPoints[0])[0])
 
-        if cstPoints < int(pointValue):
+        if cstPoints < int(point_value):
             return 'Not enough points to redeem reward'
         else:
-            query = 'INSERT INTO Rewards (discount, exp_date, item, user_id, pointValue, reward_id) values ("'
+            query = 'INSERT INTO Rewards (discount, exp_date, item, user_id, point_value, reward_id) values ("'
             query += discount +'", '
             query += "STR_TO_DATE('" + exp_date + "' ,'%Y-%m-%d'), \""
             query += item +'", "'
             query += user_id +'", "'
-            query += pointValue +'", "'
+            query += point_value +'", "'
             query += str(reward_id) +'")'
             current_app.logger.info(query)
 
         cursor3 = db.get_db().cursor()
         cursor3.execute(query)
         db.get_db().commit()
-        return 'New reward:' + discount +', ' + exp_date +', ' + item + ', ' + user_id + ', ' + pointValue + ', ' + str(reward_id) +'.'
+        return 'New reward:' + discount +', ' + exp_date +', ' + item + ', ' + user_id + ', ' + point_value + ', ' + str(reward_id) +'.'
     
     #gets all rewards in database
 @customers.route('/allRewards', methods=['GET'])
