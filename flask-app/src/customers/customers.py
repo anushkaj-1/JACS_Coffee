@@ -161,11 +161,11 @@ def cst_rewards(userID):
         cursor = db.get_db().cursor()
     
 
-        discount = the_data['discount']
-        exp_date = the_data['exp_date']
+        discount = str(the_data['discount'])
+        exp_date = str(the_data['exp_date'])
         item = the_data['item']
         user_id = userID
-        pointValue = the_data['pointValue']
+        pointValue = str(the_data['pointValue'])
         cursor.execute('SELECT max(reward_id) from Rewards')
         reward_id = cursor.fetchall()
         reward_id = int((reward_id[0])[0])+1
@@ -180,7 +180,7 @@ def cst_rewards(userID):
         else:
             query = 'INSERT INTO Rewards (discount, exp_date, item, user_id, pointValue, reward_id) values ("'
             query += discount +'", '
-            query += "STR_TO_DATE('" + exp_date + "' ,'%d,%m,%Y'), \""
+            query += "STR_TO_DATE('" + exp_date + "' ,'%Y-%m-%d'), \""
             query += item +'", "'
             query += user_id +'", "'
             query += pointValue +'", "'
