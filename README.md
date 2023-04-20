@@ -21,3 +21,5 @@ This repo contains a boilerplate setup for spinning up 3 Docker containers:
 
 
 Our project is a Rewards app for the company named JACS. Please watch a video at this link for more information on the features of our app
+https://drive.google.com/file/d/1SgUUqgfsXA1v_aSKlf1uV5nYNuWyQdVy/view?usp=sharing
+
