@@ -53,6 +53,7 @@ def get_order(method):
     the_response.mimetype = 'application/json'
     return the_response
 
+#get all orders with name, size, milk, topping, and drink type (method doesn't matter)
 @employees.route('/allOrders', methods = ['GET'])
 def get_orders():
     cursor = db.get_db().cursor()
@@ -94,6 +95,7 @@ def update_employee_info(employeeID):
     db.get_db().commit()
     return "Success"
 
+#delete an order
 @employees.route('/orders/<orderID>', methods=['DELETE'])
 def delete_order(orderID):
     # constuct statement
@@ -106,6 +108,29 @@ def delete_order(orderID):
     db.get_db().commit()
     return "Success"
 
+#add new employee
+@employees.route('/add employee', methods = ['POST'])
+def addemployee(firstname, lastname):
+    cursor = db.get_db().cursor()
+    query = '''
+        INSERT INTO Employee(employee_id,first_name,last_name,employee_role) VALUES ("'
+    '''
+    cursor.execute('SELECT max(employee_id) from Customer')
+    employee_id = cursor.fetchall()
+    employee_id = int((employee_id[0])[0])+1
+
+    query += employee_id + '", "' +firstname+ '", "' + lastname+ '", "Barista")'
+
+    cursor.execute(query)
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(jsonify(json_data))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
 
 '''
 # Get customer detail for customer with particular userID
