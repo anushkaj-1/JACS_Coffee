@@ -1,15 +1,14 @@
--- This file is to bootstrap a database for the CS3200 project. 
+-- This file is to bootstrap a database for the CS3200 project.
 
 -- Create a new database.  You can change the name later.  You'll
--- need this name in the FLASK API file(s),  the AppSmith 
+-- need this name in the FLASK API file(s),  the AppSmith
 -- data source creation.
-
 create database Jacsdb;
 
--- Via the Docker Compose file, a special user called webapp will 
--- be created in MySQL. We are going to grant that user 
--- all privilages to the new database we just created. 
--- TODO: If you changed the name of the database above, you need 
+-- Via the Docker Compose file, a special user called webapp will
+-- be created in MySQL. We are going to grant that user
+-- all privilages to the new database we just created.
+-- TODO: If you changed the name of the database above, you need
 -- to change it here too.
 
 grant all privileges on Jacsdb.* to 'webapp'@'%';
@@ -17,11 +16,10 @@ flush privileges;
 
 -- Move into the database we just created.
 -- TODO: If you changed the name of the database above, you need to
--- change it here too. 
+-- change it here too.
 use Jacsdb;
 
-DROP TABLE Employee;
--- Put your DDL 
+-- Put your DDL
 CREATE TABLE IF NOT EXISTS Employee
 (
     employee_id int PRIMARY KEY,
@@ -60,9 +58,7 @@ INSERT INTO Employee(employee_id,first_name,last_name,employee_role) VALUES (27,
 INSERT INTO Employee(employee_id,first_name,last_name,employee_role) VALUES (28,'Kelcie','McManus','Owner');
 INSERT INTO Employee(employee_id,first_name,last_name,employee_role) VALUES (29,'Allie','Blandamere','Owner');
 INSERT INTO Employee(employee_id,first_name,last_name,employee_role) VALUES (30,'Ewell','Harnott','Owner');
-
-
-DROP TABLE Customer;
+;
 
 CREATE TABLE IF NOT EXISTS Customer
 (
@@ -113,7 +109,7 @@ INSERT INTO Customer(cst_name,birthday,user_id,points) VALUES ('Monah Wash','193
 INSERT INTO Customer(cst_name,birthday,user_id,points) VALUES ('Petra Hayer','1974-08-14',39,85);
 INSERT INTO Customer(cst_name,birthday,user_id,points) VALUES ('Fern Skettles','2008-05-08',40,30);
 
-DROP TABLE Orders;
+
 
 CREATE TABLE IF NOT EXISTS Orders
 (
@@ -171,7 +167,6 @@ INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES 
 INSERT INTO Orders(order_id,order_date,order_method,employee_id,user_id) VALUES (40,'2022-12-23','In-Person',16,20);
 
 
-DROP TABLE Drink;
 
 CREATE TABLE IF NOT EXISTS Drink
 (
@@ -225,7 +220,6 @@ INSERT INTO Drink(drink_id,size,milk,type,price,point_value) VALUES (38,'small',
 INSERT INTO Drink(drink_id,size,milk,type,price,point_value) VALUES (39,'medium','hazelnut milk','Espresso',3.06,59);
 INSERT INTO Drink(drink_id,size,milk,type,price,point_value) VALUES (40,'large','lactose-free milk','Drip Coffee',2.3,14);
 
-DROP TABLE Drnk_Ord;
 
 CREATE TABLE IF NOT EXISTS Drnk_Ord
 (
@@ -275,7 +269,6 @@ INSERT INTO Drnk_Ord(order_id,drink_id) VALUES (4,25);
 INSERT INTO Drnk_Ord(order_id,drink_id) VALUES (15,37);
 
 
-DROP TABLE Rewards;
 
 CREATE TABLE IF NOT EXISTS Rewards
 (
@@ -326,7 +319,6 @@ INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES 
 INSERT INTO Rewards(reward_id,exp_date,discount,item,user_id,pointValue) VALUES (35,'2023-01-15',7,'coffee',23,66);
 
 
-DROP TABLE Toppings;
 
 CREATE TABLE IF NOT EXISTS Toppings
 (

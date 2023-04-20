@@ -1,9 +1,21 @@
 [
   {
-    "_id": "cd143d75-fd2b-4039-a514-cd7a5005de02",
-    "colName": "Simple Requests",
-    "created": "2023-03-29T12:08:58.256Z",
+    "_id": "103e2b3a-28dc-4c54-8109-e6332f8f438c",
+    "colName": "Employee Requests",
+    "created": "2023-04-18T02:25:18.048Z",
     "sortNum": 10000,
+    "folders": [],
+    "settings": {
+      "options": {
+        "baseUrl": "localhost:8001/e"
+      }
+    }
+  },
+  {
+    "_id": "710c9ad0-f031-4b03-a958-479cb7ab67bb",
+    "colName": "Jacs Testing",
+    "created": "2023-04-19T23:00:01.428Z",
+    "sortNum": 20000,
     "folders": []
   }
 ]
