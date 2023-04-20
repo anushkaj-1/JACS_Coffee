@@ -353,4 +353,3 @@ INSERT INTO Toppings(order_id,topping) VALUES (30,'hazelnut syrup');
 INSERT INTO Toppings(order_id,topping) VALUES (18,'cinnamon powder');
 INSERT INTO Toppings(order_id,topping) VALUES (40,'nutmeg powder');
 INSERT INTO Toppings(order_id,topping) VALUES (3,'whipped cream');
-
