@@ -58,7 +58,7 @@ def get_order(method):
 def get_orders():
     cursor = db.get_db().cursor()
     query = '''
-        SELECT size, type, milk, topping, cst_name 
+        SELECT size, type, milk, topping, cst_name, order_id 
         FROM Drnk_Ord JOIN Drink USING (drink_id) JOIN 
         Orders USING (order_id) JOIN Toppings USING (order_id) 
         JOIN Customer USING (user_id)
