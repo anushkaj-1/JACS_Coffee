@@ -62,7 +62,6 @@ def get_orders():
         FROM Drnk_Ord JOIN Drink USING (drink_id) JOIN 
         Orders USING (order_id) JOIN Toppings USING (order_id) 
         JOIN Customer USING (user_id)
-        GROUP BY order_id
         ORDER BY order_id
     '''
     cursor.execute(query)
